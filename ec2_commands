@@ -2,3 +2,5 @@
 aws ec2 describe-instances | jq '.Reservations[0].Instances[0].InstanceId'
 #List InstanceId and Public DNS Name
 aws ec2 describe-instances | jq -r '.Reservations[].Instances[]| [.InstanceId,.PublicDnsName]
+#List Image ID
+aws ec2 describe-instances | jq -r '.Reservations[].Instances[]| [.ImageId]'
