@@ -1,5 +1,5 @@
 #!/usr/bin/bash -x 
-IFS="$" ""
+IFS=","
 echo ""
 echo "1. Display Instance Ids"
 echo "2. Display Public Dns Name"
@@ -12,29 +12,22 @@ printf "choose from above, Use space if you want to display more Properties (Eg:
 read choice
 
 howmany() { echo $#; }
-
-string1="Instance_Id: .InstanceId"
-string2="Public_Dns: .PublicDnsName"
-string3="Public_IP: .PublicIpAddress"
-string4="Private_Ip: .PrivateIpAddress"
-string5="Vpc: .VpcId"
-string="Image_Id: .ImageId"
-string="Status: .State.Name"
-argumnents='1 2 3 4 5 6 7'
- for i in $choice;
+string="InstanceId:.InstanceId, Public_Dns:.PublicDnsName, Public_IP:.PublicIpAddress, Private_Ip:.PrivateIpAddress, Vpc:.VpcId, Image_Id:.ImageId, Status:.State.Name"
+n=1
+for i in $choice;
  do
-  if [ `howmany $choice` == 1 ];
-  then
-     if [ $i == 1 ];
-     then
-      command_string+="$string$i"
-     fi
-  elif [ `howmany $choice` > 1 ];
-  then
-    if [  $i == 2 ];
-    then
-    command_string+=",$string$i"
-    fi
-  fi
+   for m in $string;
+    do
+        if [ `howmany $choice` == 1 ];
+     	then
+      	    command_string+=""
+  	elif [ `howmany $choice` > 1 ] && [ $n == 1 ];
+  	then
+    	      command_string+="$[string$i]"
+  	elif [ `howmany $choice` > 1 ] && [ $n > 1 ];
+  	then
+    	      command_string+=",$[string$i]"
+        fi
+   ((n++))
  done    
-`aws ec2 describe-instances | jq -r ".Reservations[].Instances[]|{$command_string}"`
+#"`aws ec2 describe-instances | jq -r ".Reservations[].Instances[]|{$command_string}"`"
