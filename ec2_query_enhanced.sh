@@ -18,6 +18,7 @@ string3='Public_IP:.PublicIpAddress'
 string4='Private_Ip:.PrivateIpAddress'
 string5='Vpc:.VpcId'
 string6='Image_Id:.ImageId'
+string7='Status:.State.Name'
 n=1
 
 for i in $choice;
