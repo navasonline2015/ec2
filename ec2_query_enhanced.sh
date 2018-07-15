@@ -1,4 +1,4 @@
-#!/usr/bin/bash 
+#!/usr/bin/bash
 IFS="$ "
 echo ""
 echo "1. Display Instance Ids"
@@ -8,6 +8,9 @@ echo "4. Display Private Ip Address"
 echo "5. Display Vpc IDs"
 echo "6. Display Image IDs"
 echo "7. Display Instance Status"
+echo "8. Display SubnetId"
+echo "9. Display InstanceType"
+echo "10. All of the Above"
 printf "choose from above, Use space if you want to display more Properties (Eg: 1 3 5) :"
 read choice
 
@@ -19,6 +22,9 @@ string4='Private_Ip:.PrivateIpAddress'
 string5='Vpc:.VpcId'
 string6='Image_Id:.ImageId'
 string7='Status:.State.Name'
+string8='SubnetId:.SubnetId'
+string9='InstanceType:.InstanceType'
+string10="$string1,$string2,$string3,$string4,$string5,$string6,$string7,$string8,$string9"
 n=1
 
 for i in $choice;
@@ -84,6 +90,30 @@ for i in $choice;
                 command_string+=",$string7"
            elif [ `howmany $choice` > 1 ] && [ $n == 1 ];then
                 command_string+="$string7"
+           fi
+	elif [ $i == 8 ];then
+           if [ `howmany $choice` == 1 ];then
+               command_string+="$string8"
+           elif [ `howmany $choice` > 1 ] && [ $n != 1 ];then
+                command_string+=",$string8"
+           elif [ `howmany $choice` > 1 ] && [ $n == 1 ];then
+                command_string+="$string8"
+           fi
+	elif [ $i == 9 ];then
+           if [ `howmany $choice` == 1 ];then
+               command_string+="$string9"
+           elif [ `howmany $choice` > 1 ] && [ $n != 1 ];then
+                command_string+=",$string9"
+           elif [ `howmany $choice` > 1 ] && [ $n == 1 ];then
+                command_string+="$string9"
+           fi
+	elif [ $i == 10 ];then
+           if [ `howmany $choice` == 1 ];then
+               command_string+="$string10"
+           elif [ `howmany $choice` > 1 ] && [ $n != 1 ];then
+                command_string+=",$string10"
+           elif [ `howmany $choice` > 1 ] && [ $n == 1 ];then
+                command_string+="$string9"
            fi
 
         fi
